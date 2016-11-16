@@ -1,0 +1,1 @@
+# sass-frame-strap
