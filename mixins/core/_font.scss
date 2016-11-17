@@ -1,0 +1,11 @@
+@mixin font-varint($min, $max) {
+    @for $i from $min through $max {
+        .fz-#{$i} {
+            font-size: #{rem($i)} !important;
+        }
+    }
+}
+
+@mixin font-col($color) {
+    color: $color;
+}

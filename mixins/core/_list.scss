@@ -1,0 +1,118 @@
+// 间隔列表
+%gap-item {
+    position: relative;
+    background: #fff;
+    margin: 10px 0;
+    @if $activeStateSwitch {
+        &:active,
+        &:hover {
+            background-color: darken($colorF, 3%);
+        }
+    }
+    &::before {
+        content: "";
+        @include retina-one-px-border;
+    }
+    &::after {
+        content: "";
+        @include retina-one-px-border(bottom);
+    }
+}
+
+// %
+// 只定义了%，所以只能通过@extend来调用
+//-----------------------------------------------------
+// bar line
+%bar-line {
+    line-height: $barHeight - 10px;
+    padding: 5px 10px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    @if $activeStateSwitch {
+        &:active,
+        &:hover {
+            background-color: darken($colorF, 3%);
+        }
+    }
+    &:not(:first-of-type)::before {
+        content: "";
+        @include retina-one-px-border;
+    }
+}
+
+// v arrow 方向箭头
+@mixin v-arrow($direction: right, $borderWidth: 2px, $size: 10px) {
+    display: inline-block;
+    vertical-align: middle;
+    width: $size;
+    height: $size;
+    @if $direction==top {
+        border-top: $borderWidth solid currentColor;
+        border-right: $borderWidth solid currentColor;
+        transform: rotate(-45deg);
+    }
+    @else if $direction==right {
+        border-top: $borderWidth solid currentColor;
+        border-right: $borderWidth solid currentColor;
+        transform: rotate(45deg);
+    }
+    @else if $direction==bottom {
+        border-left: $borderWidth solid currentColor;
+        border-bottom: $borderWidth solid currentColor;
+        transform: rotate(-45deg);
+    }
+    @if $direction==left {
+        border-left: $borderWidth solid currentColor;
+        border-bottom: $borderWidth solid currentColor;
+        transform: rotate(45deg);
+    }
+}
+
+// item arrow, 右侧箭头跳转指向
+%item-v-right {
+    &::after {
+        content: "";
+        @include v-arrow;
+        color: $colorC;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        margin-top: -1px;
+        transform: rotate(45deg) translate(0, -50%);
+        box-sizing: border-box;
+    }
+}
+
+// triangle 三角箭头
+// 可采用空元素或伪元素生成，具体定位这里不涉及
+%triangle-basic {
+    content: "";
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+@mixin triangle($direction: top, $borderWidth: 6px, $borderColor: $colorC) {
+    @extend %triangle-basic;
+    @if $direction==top {
+        border-bottom: $borderWidth solid $borderColor;
+        border-left: $borderWidth dashed transparent;
+        border-right: $borderWidth dashed transparent;
+    }
+    @else if $direction==right {
+        border-left: $borderWidth solid $borderColor;
+        border-top: $borderWidth dashed transparent;
+        border-bottom: $borderWidth dashed transparent;
+    }
+    @else if $direction==bottom {
+        border-top: $borderWidth solid $borderColor;
+        border-left: $borderWidth dashed transparent;
+        border-right: $borderWidth dashed transparent;
+    }
+    @else if $direction==left {
+        border-right: $borderWidth solid $borderColor;
+        border-top: $borderWidth dashed transparent;
+        border-bottom: $borderWidth dashed transparent;
+    }
+}
